@@ -1,0 +1,118 @@
+<template>
+  <div class="home">
+    <search-component></search-component>
+    <main-forecast
+      v-if="cityMainForecast.name.length > 0"
+      class="main-forecast"
+      :cityMainForecast="cityMainForecast"
+      @addRemoveCity="handleCityInFavorite"
+    ></main-forecast>
+  </div>
+</template>
+
+<script>
+import SearchComponent from "@/components/SearchComponent";
+import MainForecast from "@/components/MainForecast";
+
+export default {
+  name: "weather",
+  components: {
+    SearchComponent,
+    MainForecast
+  },
+  data() {
+    return {
+      location: null,
+      gettingLocation: false,
+      errorStr: null
+    };
+  },
+  methods: {
+    handleCityInFavorite(action) {
+      console.log("handleCityInFavorite", action);
+      if (action === "add") {
+        this.$store.dispatch({
+          type: "handleAddCityToFavorite",
+          city: {
+            name: this.cityMainForecast.name,
+            key: this.cityMainForecast.key
+          }
+        });
+      } else {
+        this.$store.dispatch({
+          type: "handleRemoveCityFromFavorite",
+          city: {
+            name: this.cityMainForecast.name,
+            key: this.cityMainForecast.key
+          }
+        });
+      }
+    },
+    getGeoLocation() {
+      if (!("geolocation" in navigator)) {
+        this.errorStr = "Geolocation is not available.";
+        this.gettingLocation = false;
+        return this.handleDefualtLocationForecast();
+      }
+      navigator.geolocation.getCurrentPosition(
+        pos => {
+          this.location = pos;
+          console.log("get from location: ", pos.coords);
+          this.gettingLocation = true;
+          return this.handleGeoPositionForecast(pos.coords);
+        },
+        err => {
+          this.gettingLocation = false;
+          this.errorStr = err.message;
+          return this.handleDefualtLocationForecast();
+        }
+      );
+    },
+    handleDefualtLocationForecast() {
+      const city = {
+        Name: "Tel Aviv, Israel",
+        Key: "215854"
+      };
+      this.$store.dispatch({
+        type: "handleMainForecast",
+        city
+      });
+    },
+    handleGeoPositionForecast(coords) {
+      return this.$store.dispatch({
+        type: "handleGeopositionForecast",
+        coords
+      });
+    }
+  },
+  computed: {
+    cityMainForecast() {
+      return this.$store.state.city;
+    }
+  },
+  created() {
+    this.$store.dispatch({type: 'handleGetWeatherImageMap'});
+    const city = this.$route.params;
+    console.log('city params: ', city);
+    if (city.key && city.name) {
+      this.$store.dispatch({
+        type: "handleMainForecast",
+        city: { Key: city.key, Name: city.name }
+      });
+    } else {
+      console.log("get from location");
+      this.getGeoLocation();
+    }
+  }
+};
+</script>
+
+<style lang="scss" scoped>
+.home {
+  margin-top: 20px;
+}
+
+.main-forecast {
+  margin: 20px auto;
+}
+</style>
