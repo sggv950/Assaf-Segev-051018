@@ -1,6 +1,9 @@
 <template>
   <section v-if="favoriteCities">
-    <h4>Favorites Page</h4>
+    <div class="headline-text">
+      <h4>Favorites</h4>
+      <p>get quick access forecasts in different cities</p>
+    </div>
     <div class="favorites-container">
       <b-card-group
         deck
@@ -78,6 +81,10 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.headline-text{
+  margin: 20px auto;
+}
+
 .favorites-container {
   @media (min-width: 640px) {
     padding: 20px;

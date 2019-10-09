@@ -1,14 +1,14 @@
 const axios = require("axios");
 
-const WEATHER_API_KEY = "17Xq5P07ge1Obaz8AswX1GiIMeuxVqAG";
+const WEATHER_API_KEY = "b6iAGlImmrKQsOCsZmtYez2EZaBO84Ni";
 const GEOPOSITION_URL =
-  "http://dataservice.accuweather.com/locations/v1/cities/geoposition/search";
+  "https://dataservice.accuweather.com/locations/v1/cities/geoposition/search";
 const AUTOCOMPLETE_URL =
-  "http://dataservice.accuweather.com/locations/v1/cities/autocomplete";
+  "https://dataservice.accuweather.com/locations/v1/cities/autocomplete";
 const CURRENT_FORECAST_URL =
-  "http://dataservice.accuweather.com/currentconditions/v1";
+  "https://dataservice.accuweather.com/currentconditions/v1";
 const FIVE_DAYS_FORECAST_URL =
-  "http://dataservice.accuweather.com/forecasts/v1/daily/5day";
+  "https://dataservice.accuweather.com/forecasts/v1/daily/5day";
 
 const TEST_AUTOCOMPLETE_URL = "http://localhost:3000/new";
 // const TEST_CURRENT_FORECAST_URL = "http://localhost:3000/current";

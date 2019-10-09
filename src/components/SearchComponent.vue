@@ -1,5 +1,5 @@
 <template>
-  <section>
+  <section class="search-component-container">
     <search-input
       @newSearchInput="debounceHandleNewInput"
       :isPickingItem="isPickingItem"
@@ -56,6 +56,14 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.search-component-container {
+  max-width: 350px;
+  margin: 0 auto;
+  @media (min-width: 640px) {
+    max-width: 600px;
+  }
+}
+
 .search-input {
   @media (min-width: 640px) {
     width: 600px;

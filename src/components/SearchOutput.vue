@@ -15,7 +15,7 @@ export default {
   props: ["cities"],
   methods: {
     handlePickCity(city) {
-      console.log("picked city",city);
+      console.log("picked city", city);
       this.$emit("cityPick", city);
     }
   }
@@ -23,6 +23,15 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.search-output-container {
+  max-width: 350px;
+
+  @media (min-width: 640px) {
+    width: 600px;
+    max-width: 600px;
+  }
+}
+
 ul {
   list-style-type: none;
   padding: 0;

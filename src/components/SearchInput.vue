@@ -61,14 +61,16 @@ export default {
 
 <style lang="scss" scoped>
 .search-input-container {
+  max-width: 600px;
+  
+  @media (min-width: 640px) {
+    margin: 0 auto;
+  }
+
   p {
     text-align: left;
     padding-left: 10px;
     margin: 0;
-  }
-  max-width: 600px;
-  @media (min-width: 640px) {
-    margin: 0 auto;
   }
 }
 

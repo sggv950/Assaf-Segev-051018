@@ -93,6 +93,7 @@ export default {
 
 <style lang="scss" scoped>
 .forecast-container {
+  background-size: cover;
   padding: 20px;
   border: 1px solid #000;
   border-radius: 5px;
