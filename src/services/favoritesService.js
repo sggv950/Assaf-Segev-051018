@@ -1,13 +1,4 @@
 function getCitiesFromStorage() {
-//   saveCitiesToStorage([
-//     { name: "Tel Aviv", key: 1 },
-//     { name: "Jerusalem", key: 2 },
-//     { name: "Eilat", key: 3 },
-//     { name: "bbbbb", key: 4 },
-//     { name: "cccccc", key: 5 },
-//     { name: "rtrtrt", key: 6 },
-//     { name: "dfgeeg", key: 7 },
-//   ]);
   return JSON.parse(localStorage.getItem("favoriteCities"));
 }
 

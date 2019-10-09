@@ -10,14 +10,8 @@ const CURRENT_FORECAST_URL =
 const FIVE_DAYS_FORECAST_URL =
   "https://dataservice.accuweather.com/forecasts/v1/daily/5day";
 
-const TEST_AUTOCOMPLETE_URL = "http://localhost:3000/new";
-// const TEST_CURRENT_FORECAST_URL = "http://localhost:3000/current";
-const TEST2_CURRENT_FORECAST_URL = "http://localhost:3000/";
-const TEST_FIVE_DAYS_FORECAST_URL = "http://localhost:3000/fiveDays";
-
 function getCitiesAutocomplete(input) {
   const reqUrl = `${AUTOCOMPLETE_URL}?q=${input}&apikey=${WEATHER_API_KEY}`;
-  // return axios.get(TEST_AUTOCOMPLETE_URL).then(res => res.data);
   return axios.get(reqUrl).then(res => res.data);
 }
 
@@ -29,13 +23,11 @@ function getCityByGeoposition(coords) {
 function getCurrentForecast(cityKey) {
   console.log("cityKey", cityKey);
   const reqUrl = `${CURRENT_FORECAST_URL}/${cityKey}?apikey=${WEATHER_API_KEY}`;
-  // return axios.get(TEST2_CURRENT_FORECAST_URL+cityKey).then(res => res.data);
   return axios.get(reqUrl).then(res => res.data);
 }
 
 function getFiveDaysForecast(cityKey, isMatric = true) {
   const reqUrl = `${FIVE_DAYS_FORECAST_URL}/${cityKey}?apikey=${WEATHER_API_KEY}&metric=${isMatric}`;
-  // return axios.get(TEST_FIVE_DAYS_FORECAST_URL).then(res => res.data);
   return axios.get(reqUrl).then(res => res.data);
 }
 
@@ -54,11 +46,8 @@ function getFullForecast(cityKey, isMatric = true) {
 function getMultipleForecast(cities) {
   const citiesReqArr = cities.map(city => getCurrentForecast(city.key));
   return axios.all(citiesReqArr).then(res => {
-    console.log("axios.all res", res);
     const forecastArr = res.map(item => item[0]);
-    // console.log('forecastArr', forecastArr)
     return forecastArr;
-    // return res
   });
 }
 
