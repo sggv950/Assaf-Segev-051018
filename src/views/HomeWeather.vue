@@ -1,7 +1,7 @@
 <template>
   <div class="home">
     <h4>Welcome to my weather App</h4>
-    <p>search for current and future forecast in different cities. you can also save cities to the favories for quick access latter...</p>
+    <p>search for current and future forecast in different cities. you can also save cities to the favories for quick access later...</p>
     <search-component></search-component>
     <main-forecast
       v-if="cityMainForecast.name.length > 0"
