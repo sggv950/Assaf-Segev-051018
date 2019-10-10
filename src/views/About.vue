@@ -12,7 +12,7 @@
           <a href="https://github.com/sggv950">github profile</a>
         </p>
         <p>
-          <a href="www.linkedin.com/in/assaf-segev-96a848102">linkedIn</a>
+          <a href="https://www.linkedin.com/in/assaf-segev-96a848102">linkedIn</a>
         </p>
       </div>
     </div>
