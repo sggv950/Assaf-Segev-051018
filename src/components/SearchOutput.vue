@@ -15,7 +15,6 @@ export default {
   props: ["cities"],
   methods: {
     handlePickCity(city) {
-      console.log("picked city", city);
       this.$emit("cityPick", city);
     }
   }

@@ -1,17 +1,11 @@
 import Vue from "vue";
 import Vuex from "vuex";
-import weatherModule from "./modules/weatherModule";
-import favoritesModule from "./modules/favoritesModule";
 import weatherService from "./services/weatherService";
 import favoritesService from "./services/favoritesService";
 
 Vue.use(Vuex);
 
 export default new Vuex.Store({
-  modules: {
-    weatherModule,
-    favoritesModule
-  },
   state: {
     citiesSuggestions: [],
     city: {
@@ -26,21 +20,24 @@ export default new Vuex.Store({
     tempUnit: "Metric",
     favorites: [],
     isSpinIconActive: false,
-    weatherImageMap: null
+    weatherImageMap: null,
+    isError: false
   },
+
   mutations: {
-    setTempUnit(state , {unit}){
+    toggleError(state) {
+      state.isError = !state.isError;
+    },
+    setTempUnit(state, { unit }) {
       state.tempUnit = unit;
     },
     clearCitiesSuggestions(state) {
       state.citiesSuggestions = [];
     },
     setCitiesSuggestions(state, { citiesSuggestions }) {
-      console.log("from mutation citiesSuggestions: ", citiesSuggestions);
       state.citiesSuggestions = citiesSuggestions;
     },
     setMainForecast(state, { forecastObj }) {
-      console.log("setMainForecast mut: ", forecastObj);
       state.city.name = forecastObj.cityName;
       state.city.key = forecastObj.cityKey;
       state.city.isFavorite = forecastObj.isFavorite;
@@ -50,7 +47,7 @@ export default new Vuex.Store({
     toggleSpinIcon(state, { isActive }) {
       state.isSpinIconActive = isActive;
     },
-    GetWeatherImageMap(state, {weatherImgMap}){
+    GetWeatherImageMap(state, { weatherImgMap }) {
       state.weatherImageMap = weatherImgMap;
     },
     updateFavoriteCities(state, { updatedCities }) {
@@ -67,20 +64,23 @@ export default new Vuex.Store({
       if (state.city.name === city.name) state.city.isFavorite = false;
     }
   },
+
   actions: {
-    handleTempUnit({state, commit, dispatch}, {unit}){
-      console.log(unit)
-      commit({type: 'setTempUnit', unit});
+    handleToggleError({ commit }) {
+      commit({ type: "toggleError" });
+    },
+    handleTempUnit({ state, commit, dispatch }, { unit }) {
+      commit({ type: "setTempUnit", unit });
       const city = {
         Name: state.city.name,
         Key: state.city.key
-      }
-      dispatch({type:'handleMainForecast', city})
+      };
+      dispatch({ type: "handleMainForecast", city });
     },
     handleSpinIcon({ commit }, { isActive }) {
       commit({ type: "toggleSpinIcon", isActive });
     },
-    handleCitiesAutocomplete({ commit }, { input }) {
+    handleCitiesAutocomplete({ commit, dispatch }, { input }) {
       if (input.length < 3) {
         commit({ type: "clearCitiesSuggestions" });
         commit({ type: "toggleSpinIcon", isActive: false });
@@ -88,59 +88,57 @@ export default new Vuex.Store({
         return weatherService
           .getCitiesAutocomplete(input)
           .then(citiesSuggestions => {
-            console.log("from action citiesSuggestions: ", citiesSuggestions);
             commit({ type: "setCitiesSuggestions", citiesSuggestions });
             commit({ type: "toggleSpinIcon", isActive: false });
+          })
+          .catch(() => {
+            dispatch({ type: "handleToggleError" });
           });
       }
     },
-
-    handleGeopositionForecast({dispatch}, {coords}){
-      return weatherService.getCityByGeoposition(coords)
-      .then(position => {
-        const city = {
-          Name: `${position.AdministrativeArea.LocalizedName}, ${position.Country.LocalizedName}`,
-          Key: position.Key
-        }
-        return dispatch({type: 'handleMainForecast', city})
-      })
+    handleGeopositionForecast({ dispatch }, { coords }) {
+      return weatherService
+        .getCityByGeoposition(coords)
+        .then(position => {
+          const city = {
+            Name: `${position.AdministrativeArea.LocalizedName}, ${position.Country.LocalizedName}`,
+            Key: position.Key
+          };
+          return dispatch({ type: "handleMainForecast", city });
+        })
+        .catch(() => {
+          dispatch({ type: "handleToggleError" });
+        });
     },
-
-    handleMainForecast({ state, commit }, { city }) {
-      console.log("city", city);
-      const isMatric = state.tempUnit === 'Metric' ? true : false;
-      return weatherService.getFullForecast(city.Key, isMatric).then(fullForecast => {
-        console.log("handleMainForecast action: ", fullForecast);
-        const cityName = city.LocalizedName
-          ? `${city.LocalizedName}, ${city.Country.LocalizedName}`
-          : city.Name;
-        const cityKey = city.Key;
-        const isFavorite = favoritesService.getFavoriteCityByKey(cityKey);
-        const forecastObj = {
-          cityName,
-          cityKey,
-          isFavorite: !!isFavorite,
-          fullForecast
-        };
-        console.log("forecastObj", forecastObj);
-        commit({ type: "clearCitiesSuggestions" });
-        commit({ type: "setMainForecast", forecastObj });
-      });
+    handleMainForecast({ state, commit, dispatch }, { city }) {
+      const isMatric = state.tempUnit === "Metric" ? true : false;
+      return weatherService
+        .getFullForecast(city.Key, isMatric)
+        .then(fullForecast => {
+          const cityName = city.LocalizedName
+            ? `${city.LocalizedName}, ${city.Country.LocalizedName}`
+            : city.Name;
+          const cityKey = city.Key;
+          const isFavorite = favoritesService.getFavoriteCityByKey(cityKey);
+          const forecastObj = {
+            cityName,
+            cityKey,
+            isFavorite: !!isFavorite,
+            fullForecast
+          };
+          commit({ type: "clearCitiesSuggestions" });
+          commit({ type: "setMainForecast", forecastObj });
+        })
+        .catch(() => {
+          dispatch({ type: "handleToggleError" });
+        });
     },
-
-    handleGetWeatherImageMap({commit}){
+    handleGetWeatherImageMap({ commit }) {
       const weatherImgMap = weatherService.getWeatherImageMap();
-      console.log('weatherImgMap', weatherImgMap)
-      commit({type: 'GetWeatherImageMap', weatherImgMap})
+      commit({ type: "GetWeatherImageMap", weatherImgMap });
     },
 
-    handleCurrentForecast() {
-      return weatherService.getCurrentForecast().then(forecast => {
-        console.log("from action current forecast", forecast);
-      });
-    },
-
-    handleGetFavoriteCities({ commit }) {
+    handleGetFavoriteCities({ commit, dispatch }) {
       const cities = favoritesService.getCitiesFromStorage();
       return weatherService
         .getMultipleForecast(cities)
@@ -153,13 +151,13 @@ export default new Vuex.Store({
               )
             };
           });
-          console.log("updatedCities", updatedCities);
           commit({ type: "updateFavoriteCities", updatedCities });
+        })
+        .catch(() => {
+          dispatch({ type: "handleToggleError" });
         });
     },
-
     handleAddCityToFavorite({ commit }, { city }) {
-      console.log("handleAddCityToFavorite", city);
       favoritesService.addFavoriteCity(city);
       commit({ type: "addFavoriteCity", city });
     },
@@ -168,6 +166,7 @@ export default new Vuex.Store({
       commit({ type: "removeFavoriteCity", city });
     }
   },
+
   getters: {
     citiesSuggestions: state =>
       state.citiesSuggestions.filter((city, idx) => idx < 5),

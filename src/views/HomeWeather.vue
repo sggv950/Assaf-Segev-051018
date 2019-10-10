@@ -1,7 +1,7 @@
 <template>
   <div class="home">
     <h4>Welcome to my weather App</h4>
-    <p>search for current and future forecast in different citie. you can also save cities to the favories for quick access latter...</p>
+    <p>search for current and future forecast in different cities. you can also save cities to the favories for quick access latter...</p>
     <search-component></search-component>
     <main-forecast
       v-if="cityMainForecast.name.length > 0"
@@ -31,7 +31,6 @@ export default {
   },
   methods: {
     handleCityInFavorite(action) {
-      console.log("handleCityInFavorite", action);
       if (action === "add") {
         this.$store.dispatch({
           type: "handleAddCityToFavorite",
@@ -59,7 +58,6 @@ export default {
       navigator.geolocation.getCurrentPosition(
         pos => {
           this.location = pos;
-          console.log("get from location: ", pos.coords);
           this.gettingLocation = true;
           return this.handleGeoPositionForecast(pos.coords);
         },
@@ -93,16 +91,14 @@ export default {
     }
   },
   created() {
-    this.$store.dispatch({type: 'handleGetWeatherImageMap'});
+    this.$store.dispatch({ type: "handleGetWeatherImageMap" });
     const city = this.$route.params;
-    console.log('city params: ', city);
     if (city.key && city.name) {
       this.$store.dispatch({
         type: "handleMainForecast",
         city: { Key: city.key, Name: city.name }
       });
     } else {
-      console.log("get from location");
       this.getGeoLocation();
     }
   }
@@ -111,10 +107,10 @@ export default {
 
 <style lang="scss" scoped>
 .home {
-  margin-top: 20px;
+  margin-top: 30px;
 }
 
 .main-forecast {
-  margin: 20px auto;
+  margin: 30px auto;
 }
 </style>

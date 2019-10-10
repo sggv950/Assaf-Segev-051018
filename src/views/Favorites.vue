@@ -2,7 +2,7 @@
   <section v-if="favoriteCities">
     <div class="headline-text">
       <h4>Favorites</h4>
-      <p>get quick access forecasts in different cities</p>
+      <p>get quick access to forecasts in different cities</p>
     </div>
     <div class="favorites-container">
       <b-card-group
@@ -67,10 +67,8 @@ export default {
         name: "weather",
         params: { key: city.key, name: city.name }
       });
-      console.log("getFullForecast");
     },
     removeCityFromFavorites(city) {
-      console.log("removeCityFromFavorites", city.key);
       this.$store.dispatch({ type: "handleRemoveCityFromFavorite", city });
     }
   },
@@ -81,7 +79,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.headline-text{
+.headline-text {
   margin: 20px auto;
 }
 

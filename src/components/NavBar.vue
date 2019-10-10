@@ -1,9 +1,8 @@
 <template>
   <section>
     <b-navbar class="nav-bar-container" toggleable="lg" type="dark" variant="info">
-      <b-navbar-brand>Weather App</b-navbar-brand>
+      <b-navbar-brand to="/weather">Weather App</b-navbar-brand>
       <b-navbar-toggle target="nav-collapse"></b-navbar-toggle>
-      <!-- <div class="nav-links"> -->
       <b-collapse id="nav-collapse" is-nav>
         <b-navbar-nav class="nav-links">
           <b-nav-item to="/weather">Weather</b-nav-item>
@@ -19,10 +18,6 @@
           name="radios-btn-default"
         ></b-form-radio-group>
       </b-collapse>
-      <!-- </div> -->
-      <!-- <b-form-group label="Button style radios"> -->
-
-      <!-- </b-form-group> -->
     </b-navbar>
   </section>
 </template>

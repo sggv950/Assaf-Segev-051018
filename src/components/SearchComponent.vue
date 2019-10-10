@@ -40,7 +40,6 @@ export default {
     },
     handlePickCity(city) {
       this.isPickingItem = true;
-      console.log("from search comp: city : ", city);
       this.$store.dispatch({ type: "handleMainForecast", city });
     }
   },
@@ -58,7 +57,7 @@ export default {
 <style lang="scss" scoped>
 .search-component-container {
   max-width: 350px;
-  margin: 0 auto;
+  margin: 30px auto;
   @media (min-width: 640px) {
     max-width: 600px;
   }

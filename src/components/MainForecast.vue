@@ -80,7 +80,6 @@ export default {
       }
     },
     weatherImageMap() {
-      console.log(this.$store.state.weatherImageMap[this.weatherIcon]);
       return this.$store.state.weatherImageMap;
     },
     imageUrl() {
@@ -114,6 +113,7 @@ export default {
   margin: 5px;
   padding: 10px;
   .text-details {
+    -webkit-text-stroke: 0.3px black;
     color: white;
   }
 }
@@ -132,6 +132,7 @@ export default {
   width: 100%;
   .text-details {
     color: white;
+    -webkit-text-stroke: 0.2px black;
   }
 }
 </style>
