@@ -9,6 +9,11 @@
       :cityMainForecast="cityMainForecast"
       @addRemoveCity="handleCityInFavorite"
     ></main-forecast>
+    <div class="loader" v-else >
+      <b-spinner class="loader-spinner" type="grow" variant="info" label="Spinning"></b-spinner>
+      <b-spinner class="loader-spinner" type="grow" variant="info" label="Spinning"></b-spinner>
+      <b-spinner class="loader-spinner" type="grow" variant="info" label="Spinning"></b-spinner>
+    </div>
   </div>
 </template>
 
@@ -112,5 +117,13 @@ export default {
 
 .main-forecast {
   margin: 30px auto;
+}
+
+.loader {
+  margin-top: 50px;
+}
+
+.loader-spinner{
+  margin: 10px;
 }
 </style>

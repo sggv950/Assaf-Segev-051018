@@ -27,7 +27,7 @@
       </div>
     </div>
     <div class="five-days-forecast-container">
-      <p class="text-details">forecast for the next five days:</p>
+      <h6 class="text-details">forecast for the next five days:</h6>
       <b-card-group deck>
         <b-card
           v-for="forecast in cityMainForecast.mainForecast.fiveDays.DailyForecasts"
@@ -113,8 +113,11 @@ export default {
   margin: 5px;
   padding: 10px;
   .text-details {
-    -webkit-text-stroke: 0.3px black;
     color: white;
+    -webkit-text-stroke: 0.3px black;
+    background-color: rgba(0,0,0,0.4);
+    padding: 10px;
+    border-radius: 5px;
   }
 }
 
@@ -132,7 +135,10 @@ export default {
   width: 100%;
   .text-details {
     color: white;
-    -webkit-text-stroke: 0.2px black;
+    background-color: rgba(0,0,0,0.4);
+    width: fit-content;
+    padding: 4px;
+    border-radius: 5px;
   }
 }
 </style>
