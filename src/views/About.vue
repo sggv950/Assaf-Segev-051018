@@ -4,7 +4,7 @@
       <div class="text">
         <h4>Hi, I'm Assaf</h4>
         <p>
-          Web developer who enjoys creating web applications with
+          I'm a Web developer who enjoys creating web applications with
           HTML, CSS, JavaScript, Vue JS, Angular and Node JS.
         </p>
         <p>this is a simple weather application using vueJs, vuex and vue router.</p>
@@ -24,7 +24,7 @@
   width: 100vw;
   height: 100vh;
   text-align: start;
-  background-color: rgba(0, 0, 0, 0.6);
+  background-color: rgba(0, 0, 0, 0.7);
 }
 
 .text {
