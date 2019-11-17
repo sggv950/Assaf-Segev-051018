@@ -13,6 +13,6 @@ git init
 git add -A
 git commit -m 'deploy'
 
-git push -f https://github.com/sggv950/Assaf-Segev-051018.git master:gh-pages
+git push -f https://github.com/sggv950/vue-weather-app.git master:gh-pages
 
 cd -

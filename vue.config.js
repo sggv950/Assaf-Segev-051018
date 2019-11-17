@@ -1,3 +1,3 @@
 module.exports = {
-    publicPath: '/Assaf-Segev-051019/'
+    publicPath: '/vue-weather-app/'
 }

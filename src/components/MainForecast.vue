@@ -62,6 +62,8 @@ export default {
     formatDate(date) {
       if (date) {
         return moment(String(date)).format("dddd DD-MMM");
+      } else {
+        return '';
       }
     },
     roundValue(value) {
