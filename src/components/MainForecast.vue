@@ -113,6 +113,7 @@ export default {
   justify-content: space-between;
   text-align: left;
   margin: 5px;
+  margin-bottom: 50px;
   padding: 10px;
   .text-details {
     color: white;
@@ -120,6 +121,15 @@ export default {
     background-color: rgba(0,0,0,0.4);
     padding: 10px;
     border-radius: 5px;
+    margin-right: 20px;
+  }
+
+  @media (max-width: 600px) {
+    .favorite-btn {
+      button {
+        font-size: 12px;
+      }
+    } 
   }
 }
 
@@ -135,7 +145,9 @@ export default {
   text-align: start;
   margin: 5px;
   width: 100%;
+  font-size: 14px;
   .text-details {
+    margin-bottom: 30px;
     color: white;
     background-color: rgba(0,0,0,0.4);
     width: fit-content;

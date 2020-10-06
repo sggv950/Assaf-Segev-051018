@@ -1,7 +1,7 @@
 <template>
   <section>
     <b-navbar class="nav-bar-container" toggleable="lg" type="dark" variant="info">
-      <b-navbar-brand to="/weather">Weather App</b-navbar-brand>
+      <b-navbar-brand class="logo-name" to="/weather">Weather App</b-navbar-brand>
       <b-navbar-toggle target="nav-collapse"></b-navbar-toggle>
       <b-collapse id="nav-collapse" is-nav>
         <b-navbar-nav class="nav-links">
@@ -44,5 +44,11 @@ export default {
 <style lang="scss" scoped>
 #nav-collapse {
   justify-content: space-between;
+}
+
+.logo-name {
+  text-transform: uppercase;
+  font-weight: 700;
+  letter-spacing: 1.5px;
 }
 </style>

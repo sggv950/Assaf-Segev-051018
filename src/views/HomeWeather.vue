@@ -31,7 +31,7 @@ export default {
     return {
       location: null,
       gettingLocation: false,
-      errorStr: null
+      errorStr: ''
     };
   },
   methods: {
@@ -84,6 +84,7 @@ export default {
       });
     },
     handleGeoPositionForecast(coords) {
+      this.gettingLocation = false;
       return this.$store.dispatch({
         type: "handleGeopositionForecast",
         coords
