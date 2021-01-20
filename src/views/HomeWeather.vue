@@ -54,9 +54,11 @@ export default {
         });
       }
     },
+    //FIX geolocation logic
     getGeoLocation() {
       if (!("geolocation" in navigator)) {
         this.errorStr = "Geolocation is not available.";
+        console.log(this.errorStr);
         this.gettingLocation = false;
         return this.handleDefualtLocationForecast();
       }
@@ -105,7 +107,7 @@ export default {
         city: { Key: city.key, Name: city.name }
       });
     } else {
-      this.getGeoLocation();
+      this.handleDefualtLocationForecast();
     }
   }
 };

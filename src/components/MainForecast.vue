@@ -18,12 +18,14 @@
         <h4>{{cityMainForecast.mainForecast.current.Temperature[tempUnit].Value | roundValue}}&deg;{{cityMainForecast.mainForecast.current.Temperature[tempUnit].Unit}}</h4>
       </div>
       <div class="favorite-btn">
-        <b-button
+        <button
           v-if="cityMainForecast.isFavorite"
           @click="addRemoveCity('remove')"
-          variant="danger"
-        >Remove from Favorites</b-button>
-        <b-button v-else @click="addRemoveCity('add')" variant="success">Add to Favorites</b-button>
+          class="favorite-btn"
+        ><font-awesome-icon :icon="['fas', 'star']" size="2x"
+            /></button>
+        <button v-else @click="addRemoveCity('add')" class="favorite-btn"><font-awesome-icon :icon="['far', 'star']" size="2x"
+            /></button>
       </div>
     </div>
     <div class="five-days-forecast-container">
@@ -154,5 +156,12 @@ export default {
     padding: 4px;
     border-radius: 5px;
   }
+}
+
+.favorite-btn {
+  background: none;
+  border: none;
+  outline: none;
+  color: yellow;
 }
 </style>
