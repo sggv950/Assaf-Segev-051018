@@ -1,29 +1,15 @@
-# frontend
 
-## Project setup
-```
-npm install
-```
+## simple Vuejs weather application
 
-### Compiles and hot-reloads for development
-```
-npm run serve
-```
+---
 
-### Compiles and minifies for production
-```
-npm run build
-```
+using geolocotion weather API to present current and 5 days weather forcast.
+save and manage favorite locations on local storage.
 
-### Run your tests
-```
-npm run test
-```
+---
 
-### Lints and fixes files
-```
-npm run lint
-```
-
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
+#### stack:
+- Vuejs
+- Vue Router
+- Vuex
+- Vue-Bootstrap
