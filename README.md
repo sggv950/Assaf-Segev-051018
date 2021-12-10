@@ -9,7 +9,7 @@ save and manage favorite locations on local storage.
 ---
 
 #### stack:
-- Vuejs
+- Vue
 - Vue Router
 - Vuex
 - Vue-Bootstrap
